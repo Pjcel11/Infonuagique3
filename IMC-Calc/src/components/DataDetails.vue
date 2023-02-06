@@ -2,7 +2,7 @@
     <div>
         <div v-if="!isInEditMode" class="card" style="width: 18rem;margin-bottom: 10px;">
             <div class="card-body">
-                <h5 class="card-title">{{client.data().first_name }} {{client.data().last_name }} {{client .data().age}}</h5>
+                <h5 class="card-title">{{client.data().first_name }} {{client.data().last_name }} ({{client .data().age_client}} ans)</h5>
                 <h6 class="card-subtitle mb-2 text-muted"> IMC : {{ client.data().IMC }}</h6>
                 <p class="card-text">Id : {{client.id}}</p>
                 <button class="btn btn-sm btn-warning" @click="editClient">Modifier</button>
@@ -18,7 +18,7 @@
                 <input type="text" placeholder="poids" v-model="clientCopy.poids"><br>
                 <input type="text" placeholder="taille(m)" v-model="clientCopy.taille"><br>
 
-                <h5 class="card-title">{{client.data().first_name }} {{client.data().last_name }} {{client .data().age}}</h5>
+                <h5 class="card-title">{{client.data().first_name }} {{client.data().last_name }} ({{client .data().age_client}} ans)</h5>
                 <h6 class="card-subtitle mb-2 text-muted"> IMC : {{ client.data().IMC }}</h6>
                 <p class="card-text">Id : {{client.id}}</p>
                 <button
@@ -86,6 +86,8 @@ export default {
 }
 
 </script>
-<style lang="">
-
+<style >
+button{
+    margin-right: 5px;
+};
 </style>
