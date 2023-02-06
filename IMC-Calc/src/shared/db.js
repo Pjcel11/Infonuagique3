@@ -10,11 +10,14 @@ export default {
     create: async function (person) {
       console.log('sending !')
       try {
-          const docRef = await addDoc(collection(db, "DONNEES_IMC"), person) 
+          const docRef = await addDoc(collection(db, "DONNEES_IMC"), person);
           console.log("Document written with ID: ", docRef.id);
+          return docRef;
         } catch (e) {
           console.error("Error adding document: ", e);
         }
+        
+      
     },
     read: async function () {
     console.log('reading !');

@@ -1,7 +1,7 @@
 <template>
     <div>
         <h1>Calculer votre IMC</h1>
-        <form @submit.prevent="calculerIMC(),$event">
+        <form @submit.prevent="calculerIMC()">
             <input type="text" placeholder="prénom" v-model="person.first_name"><br>
             <input type="text" placeholder="nom" v-model="person.last_name"><br>
             <input type="text" placeholder="age" v-model="person.age_client"><br>
@@ -16,8 +16,9 @@
     </div>
     <br>
     <div>
-        <button @click="sendtoBDD()">Envoyer à la BDD</button>
-        <p id="identifiant"> Vous êtes en situation -> {{retour}} </p>
+        <button @click="sendtoBDD(),$event">Envoyer à la BDD</button>
+        <p> Vous êtes en situation -> {{retour}} </p>
+        <p>Votre identifiant pour retrouver vos données plus facilement à la prochaine consultation est :  </p>
     </div>
 </template>
 
@@ -44,9 +45,9 @@
         computed: {
             x(){
                 if(this.person.IMC >0){
-                    return this.person.IMC
+                    return this.person.IMC;
                 }else{
-                    return "Veuillez remplir le formulaire pour calculer votre IMC"
+                    return "Veuillez remplir le formulaire pour calculer votre IMC";
                 }
             },
             retour(){
@@ -100,12 +101,13 @@
             sendtoBDD() {
                 console.log('sendtoBDD');
                 console.log(this.person);
-
+                
                 db.create(this.person)
-                .then((data) => {
+                .then(data => {
                     console.log(data);
                     this.$emit('created');
                     this.resetForm();
+                    console.log('resetForm');
                 })
                 .catch((error) => {
                     console.error(error)
