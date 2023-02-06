@@ -30,6 +30,9 @@ export default {
     
     return querySnapshot; //permet d'aller chercher une collection complète
     },
+    update(client){
+      return db.collection('DONNEES_IMC').doc(client.id).update({...client});
+    },
     delete: async function (id){
       console.log('deleting !');//permet de supprimer un document
       return await deleteDoc(doc(db, "DONNEES_IMC", id));
