@@ -89,5 +89,5 @@ export default {
 <style >
 button{
     margin-right: 5px;
-};
+}
 </style>
