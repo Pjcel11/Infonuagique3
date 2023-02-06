@@ -18,7 +18,7 @@
     <div>
         <button @click="sendtoBDD(),$event">Envoyer à la BDD</button>
         <p> Vous êtes en situation -> {{retour}} </p>
-        <p>Votre identifiant pour retrouver vos données plus facilement à la prochaine consultation est :  </p>
+        <p>Votre identifiant pour retrouver vos données plus facilement à la prochaine consultation est : {{ iddb }}  </p>
     </div>
 </template>
 
@@ -38,11 +38,15 @@
                 poids : '',
                 taille : '',
                 IMC : 0
-                }
+                },
+                idbdd: 'Veuillez envoyer à la BDD pour obtenir votre token'
             }
            
         },
         computed: {
+            iddb(){
+                return this.idbdd;
+            },
             x(){
                 if(this.person.IMC >0){
                     return this.person.IMC;
@@ -106,6 +110,7 @@
                 .then(data => {
                     console.log(data);
                     this.$emit('created');
+                    this.setIddb(data.id);
                     this.resetForm();
                     console.log('resetForm');
                 })
@@ -122,6 +127,9 @@
                 this.person.poids = '';
                 this.person.taille = '';
                 this.person.IMC = 0;
+            },
+            setIddb(text){
+                this.idbdd = text;
             }
         },
     };
