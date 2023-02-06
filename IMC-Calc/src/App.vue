@@ -1,7 +1,7 @@
 <template>
   <div id="app">
   <DataEntry @created="getAllClients"/>
-  <DataList :clients="clients" @deleteClient="deleteC"/>
+  <DataList :clients="clients" @saveEdit="saveEdit" @deleteClient="deleteC"/>
   </div>
 </template>
 
@@ -41,6 +41,16 @@ export default {
         console.log("Tentative de suppression en cours");
         db.delete(client.id).then(() => {
           console.log("Suppression réussie");
+          this.getAllClients();
+        })
+        .catch(error => {
+          console.error(error);
+        })
+      },
+      saveEdit(clientCopy){
+        console.log("Tentative de sauvegarde des modifications en cours (Ici App appel à db.js)");
+        db.updateC(clientCopy).then(() => {
+          console.log("Sauvegarde réussie");
           this.getAllClients();
         })
         .catch(error => {

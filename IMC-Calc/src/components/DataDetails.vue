@@ -6,7 +6,7 @@
                 <h6 class="card-subtitle mb-2 text-muted"> IMC : {{ client.data().IMC }}</h6>
                 <p class="card-text">Id : {{client.id}}</p>
                 <button class="btn btn-sm btn-warning" @click="editClient">Modifier</button>
-                <button class="btn btn-sm btn-danger" @click="deleteClient">Supprimer de BDD</button>
+                <button class="btn btn-sm btn-danger" @click="$emit('deleteClient',client)">Supprimer de BDD</button>
             </div>
         </div>
     
@@ -45,12 +45,9 @@ export default {
             isInEditMode: false
         }
     },
-    emits:["deleteClient","editClient"],
+    emits:["deleteClient","editClient","saveEdit"],
     props:['client'],
     methods:{
-        deleteClient(){
-            this.$emit('deleteClient',this.client);
-        },
         editClient(){
             const {
                 first_name,
@@ -61,6 +58,8 @@ export default {
                 IMC
             } = this.client.data();
             
+            let IMC_c = this.client.data().poids / (this.client.data().taille * this.client.data().taille);
+            
             this.clientCopy = {
                 id: this.client.id,
                 first_name,
@@ -68,18 +67,19 @@ export default {
                 age_client,
                 poids,
                 taille,
-                IMC
+                IMC: IMC_c
             }
             this.isInEditMode = true;
             console.log(this.clientCopy,this.isInEditMode);
         },
         saveEdit(){
-            this.$emit('editClient',this.clientCopy);
+            this.$emit('saveEdit',this.clientCopy);
+            console.log("on essaye de sauvegarder modifs sur un client (ici DataDetails pour DataList)");
             this.isInEditMode = false;
         },
         cancelEdit(){
             this.isInEditMode = false;
-        }
+        },
 
     }
     
@@ -87,5 +87,5 @@ export default {
 
 </script>
 <style lang="">
-    
+
 </style>

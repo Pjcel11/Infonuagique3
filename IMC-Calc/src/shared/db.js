@@ -1,5 +1,5 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.1.1/firebase-app.js";
-import { getFirestore, addDoc, collection,getDocs, doc ,deleteDoc } from "https://www.gstatic.com/firebasejs/9.1.1/firebase-firestore.js"
+import { getFirestore, addDoc, collection,getDocs, doc ,deleteDoc,updateDoc } from "https://www.gstatic.com/firebasejs/9.1.1/firebase-firestore.js"
 import config from "./privatetoken";
 
 const firebaseApp = initializeApp (config)
@@ -20,7 +20,7 @@ export default {
       
     },
     read: async function () {
-    console.log('reading !');
+    console.log('reading !(ici db.js)');
     const querySnapshot = await getDocs(collection(db, "DONNEES_IMC"));
     console.log(querySnapshot);
     console.log('transfer of data is good !');
@@ -30,11 +30,13 @@ export default {
     
     return querySnapshot; //permet d'aller chercher une collection complète
     },
-    update(client){
-      return db.collection('DONNEES_IMC').doc(client.id).update({...client});
+    updateC: async function (client){
+      console.log('updating ! (ici db.js)');//permet de mettre à jour un document
+      const ToModify=doc(db,"DONNEES_IMC",client.id)
+      await updateDoc(ToModify,({...client}));
     },
     delete: async function (id){
-      console.log('deleting !');//permet de supprimer un document
+      console.log('deleting !(ici db.js)');//permet de supprimer un document
       return await deleteDoc(doc(db, "DONNEES_IMC", id));
     }
 }
