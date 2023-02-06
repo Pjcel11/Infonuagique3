@@ -1,6 +1,7 @@
 <template>
   <div id="app">
   <DataEntry @created="getAllClients"/>
+  <br/>
   <DataList :clients="clients" @saveEdit="saveEdit" @deleteClient="deleteC"/>
   </div>
 </template>
